@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+  <title>Connect 4</title>
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.4/jasmine.css">
+  <style>
+    body {
+        font-family: sans-serif;
+    }
+
+    #game-board {
+        border: solid 1px black;
+        margin-bottom: 2em;
+    }
+
+    #game-board td {
+        border: solid 1px black;
+        height: 80px;
+        width: 80px;
+        text-align: center;
+        font-size: 45px;
+    }
+    #start-game {
+        color:seagreen
+    }
+  </style>
+  </head>
+  <body>
+  
+  <h1>Connect 4!
+    <button id="start-game">Start!</button>
+  </h1>
+  
+  <table id="game-board" cellpadding="0" cellspacing="0">
+    <tr>
+      <td class = "Column 0" id="row-5"></td>
+      <td class = "Column 1" id="row-5"></td>
+      <td class = "Column 2" id="row-5"></td>
+      <td class = "Column 3" id="row-5"></td>
+      <td class = "Column 4" id="row-5"></td>
+      <td class = "Column 5" id="row-5"></td>
+      <td class = "Column 6" id="row-5"></td>
+    </tr>
+    <tr>
+      <td class = "Column 0" id="row-4"></td>
+      <td class = "Column 1" id="row-4"></td>
+      <td class = "Column 2" id="row-4"></td>
+      <td class = "Column 3" id="row-4"></td>
+      <td class = "Column 4" id="row-4"></td>
+      <td class = "Column 5" id="row-4"></td>
+      <td class = "Column 6" id="row-4"></td>
+    </tr>
+    <tr>
+      <td class = "Column 0" id="row-3"></td>
+      <td class = "Column 1" id="row-3"></td>
+      <td class = "Column 2" id="row-3"></td>
+      <td class = "Column 3" id="row-3"></td>
+      <td class = "Column 4" id="row-3"></td>
+      <td class = "Column 5" id="row-3"></td>
+      <td class = "Column 6" id="row-3"></td>
+    </tr>
+    <tr>
+      <td class = "Column 0" id="row-2"></td>
+      <td class = "Column 1" id="row-2"></td>
+      <td class = "Column 2" id="row-2"></td>
+      <td class = "Column 3" id="row-2"></td>
+      <td class = "Column 4" id="row-2"></td>
+      <td class = "Column 5" id="row-2"></td>
+      <td class = "Column 6" id="row-2"></td>
+    </tr>
+    <tr>
+      <td class = "Column 0" id="row-1"></td>
+      <td class = "Column 1" id="row-1"></td>
+      <td class = "Column 2" id="row-1"></td>
+      <td class = "Column 3" id="row-1"></td>
+      <td class = "Column 4" id="row-1"></td>
+      <td class = "Column 5" id="row-1"></td>
+      <td class = "Column 6" id="row-1"></td>
+    </tr>
+    <tr>
+      <td class = "Column 0" id="row-0"></td>
+      <td class = "Column 1" id="row-0"></td>
+      <td class = "Column 2" id="row-0"></td>
+      <td class = "Column 3" id="row-0"></td>
+      <td class = "Column 4" id="row-0"></td>
+      <td class = "Column 5" id="row-0"></td>
+      <td class = "Column 6" id="row-0"></td>
+    </tr>
+  </table>
+  
+  <script>
