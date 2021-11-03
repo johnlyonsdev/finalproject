@@ -8,8 +8,9 @@ let count4 =0
 let count5 =0
 let count6 =0
 let finished = false
-function initializeBoard() {
 
+// Initialize Gameboard
+function initializeBoard() {
     board = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null];
 }
 
@@ -151,212 +152,290 @@ item.addEventListener('click', () => {
 })
 })
 }
+//Function that takes a player's Turn
 function playerTurn(num, count, pturn, finished) {
     console.log(finished)
-    if (finished === true) {
-        alert("The Game is already over!")
+    if (finished === true) {alert("The Game is already over!")
     } else {
-    if (count > 5) {
-        alert("This column is full. Try a different one!")
+    if (count > 5) {alert("This column is full. Try a different one!")
     }
     else {
-        console.log(pturn)
-if (pturn === true) {
-
-    let piece = document.querySelector(`#cell-${num}${count}`)
-    piece.innerHTML = "X"
-} else if (pturn === false) {
-    let piece = document.querySelector(`#cell-${num}${count}`)
-    piece.innerHTML = "O"
+        if (pturn === true) {
+        let piece = document.querySelector(`#cell-${num}${count}`)
+        piece.innerHTML = "X"}
+        else if (pturn === false) {
+            let piece = document.querySelector(`#cell-${num}${count}`)
+            piece.innerHTML = "O"}
+        checkWin(num, count, pturn)
+        gameTurn = gameTurn + 1
+        }
+    }
 }
-checkWin(num, count, pturn)
-}}}
+// Function that checks the various win conditions
+function checkWin(num, count, pturn) {
+    let victory = 1
+    // Vertical Check
+    if (count >2) {
+        if (pturn === true) {
+            for (let i=1; i <4; i++) {
+                let piece = document.querySelector(`#cell-${num}${count-i}`)
+                if (piece.innerHTML === 'X') {victory = victory + 1}}
+            if (victory === 4) {gameOver(1, pturn)}
+        }
+        else if (pturn === false) {
+            for (let i=1; i <4; i++) {
+                let piece = document.querySelector(`#cell-${num}${count-i}`)
+                if (piece.innerHTML === 'O') {victory = victory + 1}}
+            if (victory === 4) {gameOver(2, pturn)}
+        }
+    }
+    // Left Check
+    if (num >= 3) {
+        victory = 1
+        if (pturn === true) {
+            for (let i=1; i <4; i++) {
+                let piece = document.querySelector(`#cell-${num-i}${count}`)
+                if (piece.innerHTML === 'X') {victory = victory + 1}}
+            if (victory >= 4) {gameOver(1, pturn)}
+        }
+        else if (pturn === false) {
+            for (let i=1; i <4; i++) {
+                let piece = document.querySelector(`#cell-${num-i}${count}`)
+                if (piece.innerHTML === 'O') {victory = victory + 1}}
+            if (victory >= 4) {gameOver(2, pturn)}
+        }
+    }
+    // Right Check
+    if (num <= 3) {
+        victory = 1
+        if (pturn === true) {
+            for (let i=1; i <4; i++) {
+                let piece = document.querySelector(`#cell-${num+i}${count}`)
+                if (piece.innerHTML === 'X') {victory = victory + 1}}
+            if (victory >= 4) {gameOver(1, pturn)}
+        }
+        else if (pturn === false) {
+            for (let i=1; i <4; i++) {
+                let piece = document.querySelector(`#cell-${num+i}${count}`)
+                if (piece.innerHTML === 'O') {victory = victory + 1}}
+            if (victory >= 4) {gameOver(2, pturn)}
+        }
+    }
+    // Up right diagonal check
+    if (num <= 3 && count <3) {
+        victory = 1
+        if (pturn === true) {
+            for (let i=1; i <4; i++) {
+                let piece = document.querySelector(`#cell-${num+i}${count+i}`)
+                if (piece.innerHTML === 'X') {victory = victory + 1}}
+            if (victory >= 4) {gameOver(1, pturn)}
+        }
+        else if (pturn === false) {
+            for (let i=1; i <4; i++) {
+                let piece = document.querySelector(`#cell-${num+i}${count+i}`)
+                if (piece.innerHTML === 'O') {victory = victory + 1}}
+            if (victory >= 4){gameOver(2, pturn)}
+        }
+    }
+    // Down Left Diagonal Check
+    if (num >= 3 && count >2) {
+        victory = 1
+        if (pturn === true) {
+            for (let i=1; i <4; i++) {
+                let piece = document.querySelector(`#cell-${num-i}${count-i}`)
+                if (piece.innerHTML === 'X') {victory = victory + 1}}
+            if (victory >= 4 ) {gameOver(1, pturn)}
+        }
+        else if (pturn === false) {
+            for (let i=1; i <4; i++) {
+                let piece = document.querySelector(`#cell-${num-i}${count-i}`)
+                if (piece.innerHTML === 'O') {victory = victory + 1}}
+            if (victory >= 4) {gameOver(2, pturn)}
+        }
+    }
 
+    // Up left Diagonal Check
+    if (num > 2 && count <3) {
+        victory = 1
+        if (pturn === true) {
+            for (let i=1; i <4; i++) {
+                let piece = document.querySelector(`#cell-${num-i}${count+i}`)
+                if (piece.innerHTML === 'X') {victory = victory + 1}}
+            if (victory >= 4) {gameOver(1, pturn)}
+        }
+        else if (pturn === false) {
+            for (let i=1; i <4; i++) {
+                let piece = document.querySelector(`#cell-${num-i}${count+i}`)
+                if (piece.innerHTML === 'O') {victory = victory + 1}}
+            if (victory >= 4) {gameOver(2, pturn)}
+        }
+    }
+    // Down Right Diagonal Check
+    if (num <= 3 && count >2) {
+        victory = 1
+        if (pturn === true) {
+            for (let i=1; i <4; i++) {
+                let piece = document.querySelector(`#cell-${num+i}${count-i}`)
+                if (piece.innerHTML === 'X') {victory = victory + 1}}
+            if (victory >= 4) { gameOver(1, pturn)}
+        }
+        else if (pturn === false) {
+            for (let i=1; i <4; i++) {
+                let piece = document.querySelector(`#cell-${num+i}${count-i}`)
+                if (piece.innerHTML === 'O') {victory = victory + 1}}
+            if (victory >= 4){ gameOver(2, pturn)}
+        }
+    }
+    // 1 left, 2 right check
+    if (num > 0 && num < 5) {
+        victory = 1 
+        if (pturn === true) {
+            let piece = document.querySelector(`#cell-${num-1}${count}`)
+            if (piece.innerHTML === 'X') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num+1}${count}`)
+            if (piece.innerHTML === 'X') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num+2}${count}`)
+            if (piece.innerHTML === 'X') {victory = victory + 1}
+            if (victory >= 4){ gameOver(1, pturn)}
+        }
+        else if (pturn === false) {
+            let piece = document.querySelector(`#cell-${num-1}${count}`)
+            if (piece.innerHTML === 'O') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num+1}${count}`)
+            if (piece.innerHTML === 'O') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num+2}${count}`)
+            if (piece.innerHTML === 'O') {victory = victory + 1}
+            if (victory >= 4){ gameOver(2, pturn)}
+        }
+    }
+    // 2 left, 1 right check
+    if (num > 1 && num < 6) {
+        victory = 1 
+        if (pturn === true) {
+            let piece = document.querySelector(`#cell-${num-1}${count}`)
+            if (piece.innerHTML === 'X') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num-2}${count}`)
+            if (piece.innerHTML === 'X') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num+1}${count}`)
+            if (piece.innerHTML === 'X') {victory = victory + 1}
+            if (victory >= 4){ gameOver(1, pturn)}
+        }
+        else if (pturn === false) {
+            let piece = document.querySelector(`#cell-${num-1}${count}`)
+            if (piece.innerHTML === 'O') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num-2}${count}`)
+            if (piece.innerHTML === 'O') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num+1}${count}`)
+            if (piece.innerHTML === 'O') {victory = victory + 1}
+            if (victory >= 4){ gameOver(2, pturn)}
+        }
+    }
+    // Up Left 2, down right 1 check
+    if (num > 1 && num < 6 && count < 4 && count > 0) {
+        victory = 1
+        if (pturn === true) {
+            let piece = document.querySelector(`#cell-${num-1}${count+1}`)
+            if (piece.innerHTML === 'X') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num-2}${count+2}`)
+            if (piece.innerHTML === 'X') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num+1}${count-1}`)
+            if (piece.innerHTML === 'X') {victory = victory + 1}
+            if (victory >= 4){ gameOver(1, pturn)}
+        }
+        else if (pturn === false) {
+            let piece = document.querySelector(`#cell-${num-1}${count+1}`)
+            if (piece.innerHTML === 'O') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num-2}${count+2}`)
+            if (piece.innerHTML === 'O') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num+1}${count-1}`)
+            if (piece.innerHTML === 'O') {victory = victory + 1}
+            if (victory >= 4){ gameOver(2, pturn)}
+        }
+    }
+    // Up Left 1, down right 2 check
+    if (num > 0 && num < 5 && count < 5 && count > 1) {
+        victory = 1
+        if (pturn === true) {
+            let piece = document.querySelector(`#cell-${num-1}${count+1}`)
+            if (piece.innerHTML === 'X') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num+1}${count-1}`)
+            if (piece.innerHTML === 'X') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num+2}${count-2}`)
+            if (piece.innerHTML === 'X') {victory = victory + 1}
+            if (victory >= 4){ gameOver(1, pturn)}
+        }
+        else if (pturn === false) {
+            let piece = document.querySelector(`#cell-${num-1}${count+1}`)
+            if (piece.innerHTML === 'O') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num+1}${count-1}`)
+            if (piece.innerHTML === 'O') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num+2}${count-2}`)
+            if (piece.innerHTML === 'O') {victory = victory + 1}
+            if (victory >= 4){ gameOver(2, pturn)}
+        }
+    }
+    // Up right 1, down left 2 check
+    if (num < 6 && num > 1 && count < 5 && count > 1) {
+        victory = 1
+        if (pturn === true) {
+            let piece = document.querySelector(`#cell-${num-1}${count-1}`)
+            if (piece.innerHTML === 'X') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num+1}${count+1}`)
+            if (piece.innerHTML === 'X') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num-2}${count-2}`)
+            if (piece.innerHTML === 'X') {victory = victory + 1}
+            if (victory >= 4){ gameOver(1, pturn)}
+        }
+        else if (pturn === false) {
+            let piece = document.querySelector(`#cell-${num+1}${count+1}`)
+            if (piece.innerHTML === 'O') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num-1}${count-1}`)
+            if (piece.innerHTML === 'O') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num-2}${count-2}`)
+            if (piece.innerHTML === 'O') {victory = victory + 1}
+            if (victory >= 4){ gameOver(2, pturn)}
+        }
+    }
+    // Up right 2, down left 1 check
+    if (num < 5 && num > 0 && count < 4 && count > 0) {
+        victory = 1
+        if (pturn === true) {
+            let piece = document.querySelector(`#cell-${num-1}${count-1}`)
+            if (piece.innerHTML === 'X') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num+1}${count+1}`)
+            if (piece.innerHTML === 'X') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num+2}${count+2}`)
+            if (piece.innerHTML === 'X') {victory = victory + 1}
+            if (victory >= 4){ gameOver(1, pturn)}
+        }
+        else if (pturn === false) {
+            let piece = document.querySelector(`#cell-${num+1}${count+1}`)
+            if (piece.innerHTML === 'O') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num-1}${count-1}`)
+            if (piece.innerHTML === 'O') {victory = victory + 1}
+            piece = document.querySelector(`#cell-${num+2}${count+2}`)
+            if (piece.innerHTML === 'O') {victory = victory + 1}
+            if (victory >= 4){ gameOver(2, pturn)}
+        }
+    }
+    // Check if the board is full
+    if (gameTurn === 41) {
+        alert('The game is a tie!')
+        $('h1').text('The game is a tie!')
+        finished = true
+        return finished
+    }
+}
+// Function that ends the game and ensures no more moves can be made
+function gameOver(num, pturn) {
+    alert(`Player ${num} wins!`)
+    $("h1").text(`Player ${num} wins!`)
+    finished = true
+    return finished
+}
+// Initializes the start game function
+let gameTurn = 0
 let start = document.querySelector("#start-game")
 start.addEventListener("click", () => {
 	startGame()
 })
-
-function checkWin(num, count, pturn) {
-    console.log("Are we checking")
-    let victory = 1
-    let trueCount = count + 1
-if (trueCount >= 4) {
-if (pturn === true) {
-    for (let i=1; i <4; i++) {
-    let piece = document.querySelector(`#cell-${num}${trueCount-i}`)
-    if (piece.innerHTML === 'X')
-    victory = victory + 1
-}
-    if (victory === 4){
-        gameOver(1, pturn)
-    }}
-else if (pturn === false) {
-    for (let i=1; i <4; i++) {
-        let piece = document.querySelector(`#cell-${num}${trueCount-i}`)
-        if (piece.innerHTML === 'O')
-        victory = victory + 1
-    }
-        if (victory === 4){
-           gameOver(2, pturn)
-        }}
-}
-console.log(num)
-if (num >= 3) {
-    victory = 1
-    if (pturn === true) {
-        for (let i=1; i <4; i++) {
-        let piece = document.querySelector(`#cell-${num-i}${count}`)
-        console.log(piece)
-        if (piece.innerHTML === 'X')
-        victory = victory + 1
-    }console.log(victory)
-        if (victory >= 4){
-            gameOver(1, pturn)
-        }}
-    else if (pturn === false) {
-        for (let i=1; i <4; i++) {
-        let piece = document.querySelector(`#cell-${num-i}${count}`)
-        console.log(piece)
-        if (piece.innerHTML === 'O')
-        victory = victory + 1
-    }console.log(victory)
-        if (victory >= 4){
-            gameOver(2, pturn)
-        }}
-}
-if (num <= 3) {
-    victory = 1
-    if (pturn === true) {
-        for (let i=1; i <4; i++) {
-        let piece = document.querySelector(`#cell-${num+i}${count}`)
-        console.log(piece)
-        if (piece.innerHTML === 'X')
-        victory = victory + 1
-    }console.log(victory)
-        if (victory >= 4){
-            gameOver(1, pturn)
-        }}
-    else if (pturn === false) {
-        for (let i=1; i <4; i++) {
-        let piece = document.querySelector(`#cell-${num+i}${count}`)
-        console.log(piece)
-        if (piece.innerHTML === 'O')
-        victory = victory + 1
-    }console.log(victory)
-        if (victory >= 4){
-            gameOver(2, pturn)
-        }}
-}
-
-if (num <= 3 && trueCount <3) {
-    console.log('Up right diagonal check')
-    victory = 1
-    if (pturn === true) {
-        for (let i=1; i <4; i++) {
-        let piece = document.querySelector(`#cell-${num+i}${count+i}`)
-        console.log(piece)
-        if (piece.innerHTML === 'X')
-        victory = victory + 1
-    }console.log(victory)
-        if (victory >= 4){
-            gameOver(1, pturn)
-        }}
-    else if (pturn === false) {
-        for (let i=1; i <4; i++) {
-        let piece = document.querySelector(`#cell-${num+i}${count+i}`)
-        console.log(piece)
-        if (piece.innerHTML === 'O')
-        victory = victory + 1
-    }console.log(victory)
-        if (victory >= 4){
-            gameOver(2, pturn)
-        }}
-}
-if (num >= 3 && trueCount >3) {
-    console.log('Down Left Diagonal Check')
-    victory = 1
-    if (pturn === true) {
-        for (let i=1; i <4; i++) {
-        let piece = document.querySelector(`#cell-${num-i}${count-i}`)
-        console.log(piece)
-        console.log(piece.innerHTML)
-        if (piece.innerHTML === 'X')
-        victory = victory + 1
-    }console.log(victory)
-        if (victory >= 4){
-            gameOver(1, pturn)
-        }}
-    else if (pturn === false) {
-        for (let i=1; i <4; i++) {
-        let piece = document.querySelector(`#cell-${num-i}${count-i}`)
-        console.log(piece)
-        if (piece.innerHTML === 'O')
-        victory = victory + 1
-    }console.log(victory)
-        if (victory >= 4){
-            gameOver(2, pturn)
-        }}
-}
-
-
-if (num >= 3 && trueCount <3) {
-    console.log('Up left Diagonal Check')
-    victory = 1
-    if (pturn === true) {
-        for (let i=1; i <4; i++) {
-        let piece = document.querySelector(`#cell-${num-i}${count+i}`)
-        console.log(piece)
-        console.log(piece.innerHTML)
-        if (piece.innerHTML === 'X')
-        victory = victory + 1
-    }console.log(victory)
-        if (victory >= 4){
-            gameOver(1, pturn)
-        }}
-    else if (pturn === false) {
-        for (let i=1; i <4; i++) {
-        let piece = document.querySelector(`#cell-${num-i}${count+i}`)
-        console.log(piece)
-        if (piece.innerHTML === 'O')
-        victory = victory + 1
-    }console.log(victory)
-        if (victory >= 4){
-            gameOver(2, pturn)
-        }}
-}
-
-if (num <= 3 && trueCount >3) {
-    console.log('Down Right Diagonal Check')
-    victory = 1
-    if (pturn === true) {
-        for (let i=1; i <4; i++) {
-        let piece = document.querySelector(`#cell-${num+i}${count-i}`)
-        console.log(piece)
-        console.log(piece.innerHTML)
-        if (piece.innerHTML === 'X')
-        victory = victory + 1
-    }console.log(victory)
-        if (victory >= 4){
-            gameOver(1, pturn)
-        }}
-    else if (pturn === false) {
-        for (let i=1; i <4; i++) {
-        let piece = document.querySelector(`#cell-${num+i}${count-i}`)
-        console.log(piece)
-        if (piece.innerHTML === 'O')
-        victory = victory + 1
-    }console.log(victory)
-        if (victory >= 4){
-            gameOver(2, pturn)
-        }}
-}
-}
-
-
-function gameOver(num, pturn) {
-alert(`Player ${num} wins!`)
-$("h1").text(`Player ${num} wins!`)
-finished = true
-return finished
-}
