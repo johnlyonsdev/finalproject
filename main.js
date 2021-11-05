@@ -510,6 +510,7 @@ function playerTurn1(num, finished) {
 }
 
 function computerTurn() {
+    if (finished != true) {
     let randomElement = Math.floor(Math.random() * 7)
     if (count[randomElement] > 5) {
         let min = count[0]
@@ -526,5 +527,5 @@ function computerTurn() {
     checkWin(randomElement,turn)
     gameTurn = gameTurn + 1
     count[randomElement] = count[randomElement] + 1
-    
+}
 }
